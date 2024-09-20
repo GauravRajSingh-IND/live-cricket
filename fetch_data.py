@@ -9,12 +9,11 @@ class Fetch_Data:
 
     VALID_EVENT_TYPE = {"live", "recent", "upcoming"}
 
-    def __init__(self):
+    def __init__(self, key:str, host:str, end_point:str):
 
-        self.api_key = os.getenv('rapid_api_key')
-        self.api_host = os.getenv('radip_api_host')
-        self.api_end_point = os.getenv('end_point_cricketbuzz')
-
+        self.api_key = key
+        self.api_host = host
+        self.api_end_point = end_point
         self.event_type = "live"
 
     def get_matches(self, event_type:str = "live"):
@@ -48,6 +47,6 @@ class Fetch_Data:
         except requests.RequestException as e:
             return {"is_fetched":False, "response":{e}}
 
-# app = Fetch_Data()
+# app = Fetch_Data(os.getenv('rapid_api_key'), os.getenv('radip_api_host'), os.getenv('end_point_cricketbuzz'))
 # test = app.get_matches("recent")
 # print(test)
