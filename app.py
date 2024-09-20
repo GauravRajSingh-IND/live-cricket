@@ -12,6 +12,8 @@ class UserInterface:
 
     def __init__(self):
 
+        self.ranking_data = None
+
         self.ranking_format_type = ["test", "odi", "t20"]
         self.ranking_category = ["batsmen", "bowlers", "allrounders", "teams"]
 
@@ -60,7 +62,8 @@ class UserInterface:
         self.category_type.place(x=20, y=120)
 
         # get ranking button
-        self.ranking_button = tkinter.Button(self.ranking_canvas, text= "Ranking", font= ('arial', 20, 'bold'))
+        self.ranking_button = tkinter.Button(self.ranking_canvas, text= "Ranking", font= ('arial', 20, 'bold'),
+                                             command= self.get_ranking)
         self.ranking_button.place(x=100, y=170)
 
         self.ranking_canvas.place(x= 850, y=150)
@@ -116,6 +119,16 @@ class UserInterface:
                 pass
 
         return series
+
+    def get_ranking(self):
+        format_type = self.format_type.get()
+        format_category = self.category_type.get()
+        self.ranking_data = self.cric_obj.get_ranking(format_type, format_category)
+
+
+
+
+
 
 app = UserInterface()
 app.exit()
