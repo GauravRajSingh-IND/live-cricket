@@ -47,6 +47,32 @@ class Fetch_Data:
         except requests.RequestException as e:
             return {"is_fetched":False, "response":{e}}
 
+    def get_ranking(self, format_type:str, format_category:str):
+        """
+        This function return ranking of the given format type and category.
+        :param format_type: odi, test, t20
+        :param format_category: batsmen, baller, all-rounder
+        :return: dict response
+        """
+
+        url = f"https://cricbuzz-cricket.p.rapidapi.com/stats/v1/rankings/{format_category}?formatType={format_type}"
+
+        headers = {
+            "x-rapidapi-key": self.api_key,
+            "x-rapidapi-host": self.api_host
+        }
+
+        try:
+            ranking = requests.get(url= url, headers=headers)
+            ranking.raise_for_status()
+
+            # validate response.
+            data = ranking.json()
+            return {"is_fetched": True, "response":data}
+
+        except requests.RequestException as e:
+            return {"is_fetched":False, "response":{e}}
+
 # app = Fetch_Data(os.getenv('rapid_api_key'), os.getenv('radip_api_host'), os.getenv('end_point_cricketbuzz'))
 # test = app.get_matches("recent")
 # print(test)
