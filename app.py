@@ -124,10 +124,26 @@ class UserInterface:
         format_type = self.format_type.get()
         format_category = self.category_type.get()
         self.ranking_data = self.cric_obj.get_ranking(format_type, format_category)
+        self.display_ranking()
 
+    def display_ranking(self):
 
+        # delete canvas.
+        self.ranking_canvas.delete("ranking")
 
+        if self.ranking_data is not None:
+            x_ = 20
+            y_ = 250
+            for num in range(10):
+                rank = num + 1
+                name = self.ranking_data["response"]['rank'][num]['name']
+                country = self.ranking_data["response"]['rank'][num]['country']
+                rating = self.ranking_data["response"]['rank'][num]['rating']
 
+                text = f"{rank}: {name},{country}"
+                self.ranking_canvas.create_text(x_, y_, text= text, font= ('arial', 15, 'bold'), fill= "black",
+                                                tags="ranking", anchor='w')
+                y_ += 30
 
 
 app = UserInterface()
