@@ -34,6 +34,9 @@ class UserInterface:
         self.display_series(self.series)
         self.live_canvas.place(x=50, y=150)
 
+        self.live_submit = tkinter.Button(self.live_canvas, text= "Find", font= ('arial', 20, 'bold'), foreground= "black")
+        self.live_submit.place(x=350, y=500)
+
         # Upcoming event.
         self.upcoming_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
         self.upcoming_canvas.create_text(150, 30, text= "UPCOMING", font= ('arial', 25, 'bold'), fill= "gray20")
@@ -41,6 +44,7 @@ class UserInterface:
 
     def display_series(self, data):
 
+        # X, y position of text.
         x = 30
         y = 100
 
