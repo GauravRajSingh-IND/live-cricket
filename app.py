@@ -12,11 +12,11 @@ class UserInterface:
 
         self.cric_obj = Fetch_Data(os.getenv('rapid_api_key'), os.getenv('radip_api_host'), os.getenv('end_point_cricketbuzz'))
 
-        # self.cric_data = self.cric_obj.get_matches(event_type= "live")
-        # self.internation_series_names_live = self.get_series_name()
+        self.cric_data = self.cric_obj.get_matches(event_type= "live")
+        self.internation_series_names_live = self.get_series_name()
 
-        self.series = {8393: 'Bangladesh tour of India, 2024', 8818: 'New Zealand tour of Sri Lanka, 2024',
-                  8661: 'Afghanistan v South Africa in UAE, 2024', 7572: 'ICC Cricket World Cup League Two 2023-27'}
+        # self.series = {8393: 'Bangladesh tour of India, 2024', 8818: 'New Zealand tour of Sri Lanka, 2024',
+        #          8661: 'Afghanistan v South Africa in UAE, 2024', 7572: 'ICC Cricket World Cup League Two 2023-27'}
 
         self.window = tkinter.Tk()
         self.window.title("Cricket Buzz")
@@ -31,7 +31,7 @@ class UserInterface:
         # Live events.
         self.live_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 750, height= 600, highlightthickness= 1)
         self.live_canvas.create_text(375, 30, text= "LIVE", font= ('arial', 25, 'bold'), fill= "gray20")
-        self.display_series(self.series)
+        self.display_series(self.internation_series_names_live)
         self.live_canvas.place(x=50, y=150)
 
         self.series_var = tkinter.StringVar()
@@ -51,8 +51,8 @@ class UserInterface:
 
         id = int(self.series_id.get())
 
-        if id in self.series.keys():
-            print(f"Match Found {id}: {self.series[id]}")
+        if id in self.internation_series_names_live.keys():
+            print(f"Match Found {id}: {self.internation_series_names_live[id]}")
         else:
             print("Please check and try again")
 
