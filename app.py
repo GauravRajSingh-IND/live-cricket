@@ -25,14 +25,17 @@ class UserInterface:
 
         # Live events.
         self.live_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
+        self.live_canvas.create_text(150, 30, text= "LIVE", font= ('arial', 25, 'bold'), fill= "gray20")
         self.live_canvas.place(x=100, y=150)
 
         # Recent events.
         self.recent_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
+        self.recent_canvas.create_text(150, 30, text= "RECENT", font= ('arial', 25, 'bold'), fill= "gray20")
         self.recent_canvas.place(x= 450, y=150)
 
         # Upcoming event.
         self.upcoming_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
+        self.upcoming_canvas.create_text(150, 30, text= "UPCOMING", font= ('arial', 25, 'bold'), fill= "gray20")
         self.upcoming_canvas.place(x= 800, y=150)
 
 
