@@ -13,13 +13,18 @@ class UserInterface:
         self.cric_obj = Fetch_Data(os.getenv('rapid_api_key'), os.getenv('radip_api_host'), os.getenv('end_point_cricketbuzz'))
         self.cric_data = self.cric_obj.get_matches(event_type= "live")
 
+        # internation match data.
+        self.internation_live = self.cric_data['response'][0]
+        print(self.internation_live)
+
+
         self.window = tkinter.Tk()
         self.window.title("Cricket Buzz")
         self.window.geometry("1200x800")
         self.window.config(bg="lavender")
 
         # add title.
-        self.title = tkinter.Label(self.window, text= self.cric_data['response']['appIndex']['seoTitle'], font= ('arial', 30, 'bold'),
+        self.title = tkinter.Label(self.window, text= "Live Cricket Score - Scorecard and Match Results", font= ('arial', 30, 'bold'),
                                    bg="lavender", foreground= "black")
         self.title.place(x=250, y=50)
 
