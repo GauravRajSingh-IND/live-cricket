@@ -34,13 +34,27 @@ class UserInterface:
         self.display_series(self.series)
         self.live_canvas.place(x=50, y=150)
 
-        self.live_submit = tkinter.Button(self.live_canvas, text= "Find", font= ('arial', 20, 'bold'), foreground= "black")
-        self.live_submit.place(x=350, y=500)
+        self.series_var = tkinter.StringVar()
+        self.series_id = tkinter.Entry(self.live_canvas, textvariable= self.series_var, font= ('arial', 20, 'bold'))
+        self.series_id.place(x=250, y=500)
+
+        self.live_submit = tkinter.Button(self.live_canvas, text= "Find", font= ('arial', 20, 'bold'), foreground= "black",
+                                          command= self.check_series)
+        self.live_submit.place(x=550, y=500)
 
         # Upcoming event.
         self.upcoming_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
         self.upcoming_canvas.create_text(150, 30, text= "UPCOMING", font= ('arial', 25, 'bold'), fill= "gray20")
         self.upcoming_canvas.place(x= 850, y=150)
+
+    def check_series(self):
+
+        id = int(self.series_id.get())
+
+        if id in self.series.keys():
+            print(f"Match Found {id}: {self.series[id]}")
+        else:
+            print("Please check and try again")
 
     def display_series(self, data):
 
