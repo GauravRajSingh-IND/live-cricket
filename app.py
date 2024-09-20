@@ -11,8 +11,12 @@ class UserInterface:
     def __init__(self):
 
         self.cric_obj = Fetch_Data(os.getenv('rapid_api_key'), os.getenv('radip_api_host'), os.getenv('end_point_cricketbuzz'))
-        self.cric_data = self.cric_obj.get_matches(event_type= "live")
-        self.internation_series_names_live = self.get_series_name()
+
+        # self.cric_data = self.cric_obj.get_matches(event_type= "live")
+        # self.internation_series_names_live = self.get_series_name()
+
+        self.series = {8393: 'Bangladesh tour of India, 2024', 8818: 'New Zealand tour of Sri Lanka, 2024',
+                  8661: 'Afghanistan v South Africa in UAE, 2024', 7572: 'ICC Cricket World Cup League Two 2023-27'}
 
         self.window = tkinter.Tk()
         self.window.title("Cricket Buzz")
@@ -25,19 +29,25 @@ class UserInterface:
         self.title.place(x=250, y=50)
 
         # Live events.
-        self.live_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
-        self.live_canvas.create_text(150, 30, text= "LIVE", font= ('arial', 25, 'bold'), fill= "gray20")
-        self.live_canvas.place(x=100, y=150)
-
-        # Recent events.
-        self.recent_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
-        self.recent_canvas.create_text(150, 30, text= "RECENT", font= ('arial', 25, 'bold'), fill= "gray20")
-        self.recent_canvas.place(x= 450, y=150)
+        self.live_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 750, height= 600, highlightthickness= 1)
+        self.live_canvas.create_text(375, 30, text= "LIVE", font= ('arial', 25, 'bold'), fill= "gray20")
+        self.display_series(self.series)
+        self.live_canvas.place(x=50, y=150)
 
         # Upcoming event.
         self.upcoming_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
         self.upcoming_canvas.create_text(150, 30, text= "UPCOMING", font= ('arial', 25, 'bold'), fill= "gray20")
-        self.upcoming_canvas.place(x= 800, y=150)
+        self.upcoming_canvas.place(x= 850, y=150)
+
+    def display_series(self, data):
+
+        x = 30
+        y = 100
+
+        for key, value in data.items():
+            self.live_canvas.create_text(x, y, anchor=tkinter.NW, text=f"{key}: {value}",
+                                         font= ('arial', 30, 'bold'), fill= "gray20")
+            y += 75
 
     def exit(self):
         self.window.mainloop()
