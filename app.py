@@ -1,14 +1,19 @@
 import os
 import tkinter
+from tkinter import ttk
 
 from dotenv import load_dotenv
 from fetch_data import Fetch_Data
 
 class UserInterface:
 
+    # load environment data.
     load_dotenv()
 
     def __init__(self):
+
+        self.ranking_format_type = ["test", "odi", "t20"]
+        self.ranking_category = ["batsmen", "bowlers", "allrounders", "teams"]
 
         self.cric_obj = Fetch_Data(os.getenv('rapid_api_key'), os.getenv('radip_api_host'), os.getenv('end_point_cricketbuzz'))
 
@@ -44,7 +49,20 @@ class UserInterface:
 
         # Upcoming event.
         self.ranking_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
-        self.ranking_canvas.create_text(150, 30, text="Ranking - ODI", font= ('arial', 25, 'bold'), fill="gray20")
+        self.ranking_canvas.create_text(150, 30, text="Ranking", font= ('arial', 25, 'bold'), fill="gray20")
+
+        self.format_type = ttk.Combobox(self.ranking_canvas, values= self.ranking_format_type, font= ('arial', 20, 'bold'))
+        self.format_type.current(1)
+        self.format_type.place(x=20, y=70)
+
+        self.category_type = ttk.Combobox(self.ranking_canvas, values= self.ranking_category, font= ('arial', 20, 'bold'))
+        self.category_type.current(0)
+        self.category_type.place(x=20, y=120)
+
+        # get ranking button
+        self.ranking_button = tkinter.Button(self.ranking_canvas, text= "Ranking", font= ('arial', 20, 'bold'))
+        self.ranking_button.place(x=100, y=170)
+
         self.ranking_canvas.place(x= 850, y=150)
 
     def check_series(self):
