@@ -38,7 +38,6 @@ class UserInterface:
         self.upcoming_canvas.create_text(150, 30, text= "UPCOMING", font= ('arial', 25, 'bold'), fill= "gray20")
         self.upcoming_canvas.place(x= 800, y=150)
 
-
     def exit(self):
         self.window.mainloop()
 
