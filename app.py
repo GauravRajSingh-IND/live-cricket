@@ -43,9 +43,9 @@ class UserInterface:
         self.live_submit.place(x=550, y=500)
 
         # Upcoming event.
-        self.upcoming_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
-        self.upcoming_canvas.create_text(150, 30, text= "UPCOMING", font= ('arial', 25, 'bold'), fill= "gray20")
-        self.upcoming_canvas.place(x= 850, y=150)
+        self.ranking_canvas = tkinter.Canvas(self.window, bg= "gainsboro", width= 300, height= 600, highlightthickness= 1)
+        self.ranking_canvas.create_text(150, 30, text="Ranking - ODI", font= ('arial', 25, 'bold'), fill="gray20")
+        self.ranking_canvas.place(x= 850, y=150)
 
     def check_series(self):
 
