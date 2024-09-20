@@ -12,11 +12,7 @@ class UserInterface:
 
         self.cric_obj = Fetch_Data(os.getenv('rapid_api_key'), os.getenv('radip_api_host'), os.getenv('end_point_cricketbuzz'))
         self.cric_data = self.cric_obj.get_matches(event_type= "live")
-
-        # internation match data.
-        self.internation_live = self.cric_data['response'][0]
-        print(self.internation_live)
-
+        self.internation_series_names_live = self.get_series_name()
 
         self.window = tkinter.Tk()
         self.window.title("Cricket Buzz")
@@ -45,6 +41,35 @@ class UserInterface:
 
     def exit(self):
         self.window.mainloop()
+
+    def check_international_matches(self, data):
+        length = len(data)
+        for i in range(length):
+            if self.internation_live['typeMatches'][i]['matchType'] == "International":
+                return i
+
+    def get_series_name(self):
+
+        self.internation_live = self.cric_data['response']
+        self.internation_live_number = self.check_international_matches(self.internation_live)
+        self.internation_live = self.internation_live['typeMatches'][self.internation_live_number]
+
+        data = self.internation_live
+
+        num_series = len(data['seriesMatches'])
+        series = {}
+
+        for i in range(num_series):
+            try:
+                name = data['seriesMatches'][i]['seriesAdWrapper']['seriesName']
+                id = data['seriesMatches'][i]['seriesAdWrapper']['seriesId']
+
+                if id not in series:
+                    series[id] = name
+            except:
+                pass
+
+        return series
 
 app = UserInterface()
 app.exit()
