@@ -45,7 +45,7 @@ class UserInterface:
         self.series_id = tkinter.Entry(self.live_canvas, textvariable= self.series_var, font= ('arial', 20, 'bold'))
         self.series_id.place(x=250, y=500)
 
-        self.live_submit = tkinter.Button(self.live_canvas, text= "Find", font= ('arial', 20, 'bold'), foreground= "black",
+        self.live_submit = tkinter.Button(self.live_canvas, text= "Show", font= ('arial', 20, 'bold'), foreground= "black",
                                           command= self.check_series)
         self.live_submit.place(x=550, y=500)
 
@@ -72,10 +72,20 @@ class UserInterface:
 
         id = int(self.series_id.get())
 
+        series_found = False
         if id in self.internation_series_names_live.keys():
+            series_found = True
             print(f"Match Found {id}: {self.internation_series_names_live[id]}")
         else:
             print("Please check and try again")
+
+        if series_found:
+            # create a new window named after the series name.
+            self.series_window = tkinter.Toplevel()
+            self.series_window.title(f"{self.internation_series_names_live[id]}")
+            self.series_window.geometry("1200x800")
+            self.series_window.config(bg="lavender")
+
 
     def display_series(self, data):
 
