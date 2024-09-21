@@ -12,6 +12,7 @@ class UserInterface:
 
     def __init__(self):
 
+        self.series_data = None
         self.ranking_data = None
 
         self.ranking_format_type = ["test", "odi", "t20"]
@@ -86,6 +87,11 @@ class UserInterface:
             self.series_window.geometry("1200x800")
             self.series_window.config(bg="lavender")
 
+            # get series data and assign the values to series data variable.
+            key_id =  os.getenv('rapid_api_key')
+            key_host = os.getenv('radip_api_host')
+            end_point_url = os.getenv('end_point_series')
+            self.series_data = self.cric_obj.get_series_data(url=end_point_url, key=key_id, host=key_host, series_id=id)
 
     def display_series(self, data):
 

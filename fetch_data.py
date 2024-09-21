@@ -73,7 +73,7 @@ class Fetch_Data:
         except requests.RequestException as e:
             return {"is_fetched":False, "response":{e}}
 
-    def get_series_data(url: str, key: str, host: str, series_id: int) -> dict:
+    def get_series_data(self, url:str, key: str, host: str, series_id: int) -> dict:
         """
         This function takes series id and fetch the data the series.
         :param url: end point.
