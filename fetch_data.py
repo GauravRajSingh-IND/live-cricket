@@ -100,6 +100,43 @@ class Fetch_Data:
         except requests.RequestException as e:
             return {"is_fetched": False, "response": {e}}
 
+    def get_number_of_matches(self, series_data):
+        """
+        This function takes series data and return number of matches played in the series
+        :param series_data:
+        :return:
+        """
+
+        length = len(series_data['matchDetails'])
+
+        number_matches = 0
+        date = []
+        match_id = []
+        match_desc = []
+        match_format = []
+        match_state = []
+        match_status = []
+        # loop over each list to check number of matches.
+        for match in range(length):
+
+            # check keys
+            if 'matchDetailsMap' in series_data['matchDetails'][match].keys():
+                number_matches += 1
+                date.append(series_data['matchDetails'][match]['matchDetailsMap']['key'])
+                match_id.append(
+                    series_data['matchDetails'][match]['matchDetailsMap']['match'][0]['matchInfo']['matchId'])
+                match_desc.append(
+                    series_data['matchDetails'][match]['matchDetailsMap']['match'][0]['matchInfo']['matchDesc'])
+                match_format.append(
+                    series_data['matchDetails'][match]['matchDetailsMap']['match'][0]['matchInfo']['matchFormat'])
+                match_state.append(
+                    series_data['matchDetails'][match]['matchDetailsMap']['match'][0]['matchInfo']['state'])
+                match_status.append(
+                    series_data['matchDetails'][match]['matchDetailsMap']['match'][0]['matchInfo']['status'])
+
+        return {"Number_Matches": number_matches, "date": date, "match_id": match_id, "match_description": match_desc,
+                "match_format": match_format, "match_state": match_state, "match_status": match_status}
+
 # app = Fetch_Data(os.getenv('rapid_api_key'), os.getenv('radip_api_host'), os.getenv('end_point_cricketbuzz'))
 # test = app.get_matches("recent")
 # print(test)
