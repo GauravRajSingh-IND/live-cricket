@@ -73,6 +73,33 @@ class Fetch_Data:
         except requests.RequestException as e:
             return {"is_fetched":False, "response":{e}}
 
+    def get_series_data(url: str, key: str, host: str, series_id: int) -> dict:
+        """
+        This function takes series id and fetch the data the series.
+        :param url: end point.
+        :param key: api key
+        :param host: api host
+        :param series_id: series id, should be integer
+        :return: return dictionary object.
+        """
+
+        series_id = series_id
+        end_point = f"{url}{series_id}"
+
+        headers = {
+            "x-rapidapi-key": key,
+            "x-rapidapi-host": host
+        }
+
+        try:
+            series_data = requests.get(url=end_point, headers=headers)
+            series_data.raise_for_status()
+
+            return {"is_fetched": True, "response": series_data.json()}
+
+        except requests.RequestException as e:
+            return {"is_fetched": False, "response": {e}}
+
 # app = Fetch_Data(os.getenv('rapid_api_key'), os.getenv('radip_api_host'), os.getenv('end_point_cricketbuzz'))
 # test = app.get_matches("recent")
 # print(test)
