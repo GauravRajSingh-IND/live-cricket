@@ -100,7 +100,7 @@ class Fetch_Data:
         except requests.RequestException as e:
             return {"is_fetched": False, "response": {e}}
 
-    def get_number_of_matches(self, series_data):
+    def get_series_matches(self, series_data):
         """
         This function takes series data and return number of matches played in the series
         :param series_data:
